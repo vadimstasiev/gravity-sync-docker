@@ -20,8 +20,8 @@ read remote_host;
 
 echo "Is the remote SSH server on port 22?"
 if [ readYesNo ]; then
-    remote_port="22"
-else;
+    remote_port="22";
+else
     echo "What is the port of your remote SSH server?"
     read remote_port;
 fi
