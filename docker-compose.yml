@@ -1,0 +1,28 @@
+version: '2'
+services:
+    gravitysync:
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        container_name: "gravitysync"
+        restart: "unless-stopped"
+        environment:
+            TZ: "Europe/London"
+            REMOTE_HOST: "192.168.0.79"
+            REMOTE_USER: "gravitysync"
+            LOCAL_INSTALL_TYPE: "docker"
+            REMOTE_INSTALL_TYPE: "docker"
+            LOCAL_PIHOLE_DIR: "/etc/pihole/"
+            REMOTE_PIHOLE_DIR: "/etc/docker-configs/pihole/pihole/"
+            LOCAL_FILE_OWNER: "root:root"
+            REMOTE_FILE_OWNER: "gravitysync:gravitysync"
+            SYNC_FREQUENCY: "30"
+            BACKUP_HOUR: "4"
+            DEBUG: "true"
+        volumes:
+            - "/etc/docker-configs/gravity-sync/logs/gravity-sync.log:/root/gravity-sync/gravity-sync.log:rw"
+            - "/etc/docker-configs/gravity-sync/logs/gravity-sync.cron:/root/gravity-sync/gravity-sync.cron:rw"
+            - "/etc/docker-configs/gravity-sync/data/backup:/root/gravity-sync/backup/:rw"
+            - "/etc/docker-configs/pihole/pihole:/etc/pihole/:rw"
+            - "/var/run/docker.sock:/var/run/docker.sock:rw"
+            - "/etc/docker-configs/gravity-sync/.ssh/:/root/.ssh/"

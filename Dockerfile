@@ -1,4 +1,4 @@
-FROM            alpine:3 as baseenvironment
+FROM            alpine:latest as baseenvironment
 
 LABEL           maintainer Michael Thompson <mike@michael-thompson.net>
 
@@ -37,7 +37,8 @@ ENV             GS_INSTALL="secondary" \
 ADD             https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini-static /tini
 
 RUN             chmod +x /tini && \
-                apk --update add openssh sudo bash coreutils
+                apk --update add openssh sudo bash coreutils && \
+                apk add util-linux
 
 
 FROM            baseenvironment as buildenvironment
