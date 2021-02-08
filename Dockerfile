@@ -70,7 +70,8 @@ RUN             apk --update add rsync sqlite docker-cli && \
                 chmod +x /usr/local/bin/git && \
                 chmod +x /usr/local/bin/configure.sh && \
                 chmod +x /usr/local/bin/prelaunch.sh && \
-                chmod +x /usr/local/bin/startup.sh
+                chmod +x /usr/local/bin/startup.sh && \
+                sed -i 's/smart/push/g' /root/gravity-sync/includes/gs-automate.sh;
 
 ENTRYPOINT      ["/tini", "--"]
 CMD             ["/usr/local/bin/startup.sh"]
